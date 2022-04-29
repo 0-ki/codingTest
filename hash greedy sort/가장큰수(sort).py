@@ -1,41 +1,15 @@
-def sol(numbers):
-    # list comprehension으로 각 수를 문자열로 다시 대입
+def solution_mine(numbers):
+    # 문자열로 만들어서 담는다.
     numbers = [str(x) for x in numbers]
-    # 최대 1000의 길이인 수를 앞에 부터 비교하기 위해 1의 자리도 4자리(1000)과 맞추어 대조하도록 4를 곱한다.
-    # sort( key=기준 [, reverse=True내림차순])
-    numbers.sort( key=lambda x: (x*4)[:4], reverse=True)
+    # 1 > 2 > 12 순으로 정렬될 것임. ASCII 사전순으로.
+    # 문자열의 최대 자릿수가 4 이하이므로, *4를 한 값을 기준으로 비교하며 내림차순 정렬.
+    # lambda 식으로 key가 되는 비교 로직을 작성한다. 4를 곱한 후 4자리까지만 자른 것을 key 기준으로 잡았다.
+    numbers.sort(key=lambda x: (x*4)[:4] , reverse=True)
     
-    # 정렬했을 때 가장 앞이 0이라면, 0보다 큰 수를 인자로 받지 않았다는 뜻이므로.
+    # 가장 앞이 0일 때는 0만 들어있는 배열이 인자로 들어온 것이므로.. [0,0,0,0]
+    print(numbers[0])
     if numbers[0] == '0':
         return '0'
     else:
-        answer = ''.join(numbers)
-    return answer
-
-
-def solution_mine(numbers):
-    nums=list(map(lambda a: str(a), numbers))
-    print(nums)
-
-    # 2시간 고민 끝에 *3으로 해결하는 힌트를 확인함.
-    comp_n = [num*3 for num in nums]
-    
-    print(comp_n)
-    
-    dic = {}
-    for i in range(len(nums)):
-        dic[comp_n[i]] = nums[i]
-        
-    k = list(dic.keys())
-    k.sort()
-    print(k)
-    ans=[]
-    for i in range(len(k)):
-        ans.append(dic.get(k[i]))
-    print(ans)
-    
-    res = ""
-    for i in range(len(ans)):
-        res += ans.pop()
-    return res
+        return ''.join(numbers)
 
